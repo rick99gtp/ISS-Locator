@@ -2,17 +2,18 @@ import './App.css';
 import { useState } from 'react';
 import { useEffect } from 'react/cjs/react.development';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import Icon from './Icon';
 
 function App() {
   const [data, setData] = useState('');
   const [lat, setLat] = useState(0);
   const [lon, setLon] = useState(0);
   const [dataReady, setDataReady] = useState(false);
-    
+  
   const getData = async function getISSData() {
-    const iss_info = await fetch("https://api.wheretheiss.at/v1/satellites/25544");
-    const iss_data = await iss_info.json();
-    setData(iss_data);
+  const iss_info = await fetch("https://api.wheretheiss.at/v1/satellites/25544");
+  const iss_data = await iss_info.json();
+  setData(iss_data);
   };
 
   useEffect(() => {
@@ -44,12 +45,13 @@ function App() {
         style={{ height: '500px', width: '800px' }}
         center={[lat, lon]}
         zoom={5}
-        scrollWheelZoom={true}>
+        scrollWheelZoom={true}
+        >
           <TileLayer
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          <Marker position={[lat, lon]}>
+          <Marker icon={ Icon } position={[lat, lon]}>
             <Popup>
               A pretty CSS3 popup. <br /> Easily customizable.
             </Popup>
